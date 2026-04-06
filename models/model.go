@@ -1,32 +1,35 @@
 package models
 
-// 订单状态
+import "time"
+
 type OrderStatus string
 
 const (
-    OrderStatusInit    OrderStatus = "INIT"      // 初始状态
-    OrderStatusPaid    OrderStatus = "PAID"      // 已支付
-    OrderStatusCancelled OrderStatus = "CANCELLED" // 已取消
+	OrderInit      OrderStatus = "INIT"
+	OrderTry       OrderStatus = "TRY"
+	OrderConfirmed OrderStatus = "CONFIRMED"
+	OrderCancelled OrderStatus = "CANCELLED"
+)
 
-)//各过程状态
-
-// 资源购买信息
 type CourseOrder struct {
-
-	
-    
-}//价格，购买人等
-
-// 用户钱包
-type UserWallet struct {
-   
-}//余额，用户名
-
-// 所有者账户
-type OwnerAccount struct {
-    
+	Id          int64
+	OrderNo     string
+	UserId      int64
+	CourseId    int64
+	Price       float64
+	Status      OrderStatus
+	TryExpireAt *time.Time
 }
-// 用户资源权限
-type UserCoursePermission struct {
-   
+
+type UserWallet struct {
+	UserId  int64
+	Balance float64
+	Frozen  float64
+	Version int64
+}
+
+type OwnerAccount struct {
+	AccountId string
+	Balance   float64
+	Version   int64
 }
