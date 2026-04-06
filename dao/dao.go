@@ -6,6 +6,7 @@ import (
 )
 
 // 查询钱包（带乐观锁版本号）
+// FOR UPDATE 是行锁（悲观锁）
 func GetWalletForUpdate(tx *sql.Tx, userId int64) (*models.UserWallet, error) {
 	var w models.UserWallet
 	err := tx.QueryRow(
