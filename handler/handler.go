@@ -60,6 +60,7 @@ func PurchaseHandler(s *service.PurchaseService) http.HandlerFunc {
 		})
 
 		// 立即返回接受
+		//这个会等worker处理完之后才返回吗
 		json.NewEncoder(w).Encode(PurchaseResponse{Success: true, Msg: "accepted"})
 	}
 }

@@ -6,6 +6,7 @@ CREATE TABLE course_order (
     course_id      BIGINT NOT NULL,
     price          DECIMAL(10,2) NOT NULL,
     status         VARCHAR(20) NOT NULL DEFAULT 'INIT',  -- INIT / TRY / CONFIRMED / CANCELLED
+    -- 记录当前订单的尝试过期时间
     try_expire_at  DATETIME,
     created_at     DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at     DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -15,8 +16,8 @@ CREATE TABLE course_order (
 CREATE TABLE user_wallet (
     id         BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id    BIGINT UNIQUE NOT NULL,
-    balance    DECIMAL(10,2) NOT NULL DEFAULT 0,
-    frozen     DECIMAL(10,2) NOT NULL DEFAULT 0,
+    balance    DECIMAL(10,2) NOT NULL DEFAULT 0,   -- 可用余额
+    frozen     DECIMAL(10,2) NOT NULL DEFAULT 0,    -- 冻结金额
     version    BIGINT NOT NULL DEFAULT 0,          -- 乐观锁
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
