@@ -26,19 +26,3 @@ func IsStageDone(tx *sql.Tx, txId, branchId, stage string) (bool, error) {
 	}
 	return status == "SUCCESS", nil
 }
-
-// 检查Cancel是否已经发生（防悬挂）
-func IsCancelDone(tx *sql.Tx, txId, branchId string) (bool, error) {
-	var status string
-	err := tx.QueryRow(
-		"SELECT status FROM tcc_transaction_log WHERE tx_id = ? AND branch_id = ? AND stage = 'CANCEL'",
-		txId, branchId,
-	).Scan(&status)
-	if err == sql.ErrNoRows {
-		return false, nil
-	}
-	if err != nil {
-		return false, err
-	}
-	return status == "SUCCESS", nil
-}

@@ -25,20 +25,7 @@ func (s *PurchaseService) Try(ctx context.Context, orderNo string, userId, cours
 	}
 	defer tx.Rollback()
 
-	// 1. 防悬挂：检查是否已经 Cancel
-	//（ai）？？？？
-	//假设一个事务的 Cancel 阶段已完成（释放了预留资源），
-	// 但由于网络延迟、重试机制或并发，Try 请求又到达。此时如果不检查，
-	// 直接执行 Try，会重新预留资源，导致数据错误（如重复扣款）。
-	cancelDone, err := IsCancelDone(tx, orderNo, "main")
-	if err != nil {
-		return err
-	}
-	if cancelDone {
-		return errors.New("transaction already cancelled, refuse try")
-	}
-
-	// 2. 幂等：检查 Try 是否已成功
+	// 1. 幂等：检查 Try 是否已成功
 	done, err := IsStageDone(tx, orderNo, "main", "TRY")
 	if err != nil {
 		return err

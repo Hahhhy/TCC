@@ -14,13 +14,12 @@ const (
 
 //资源购买信息：订单号、用户ID、课程ID、价格、状态、冻结时间（冻结是发生在Try阶段的，所以放在订单里）
 type CourseOrder struct {
-	Id          int64
-	OrderNo     string
-	UserId      int64
-	CourseId    int64
-	Price       float64
-	Status      OrderStatus
-	TryExpireAt *time.Time
+	Id       int64
+	OrderNo  string
+	UserId   int64
+	CourseId int64
+	Price    float64
+	Status   OrderStatus
 }
 
 //用户钱包信息：用户ID、余额、冻结金额、版本号（乐观锁）

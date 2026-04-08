@@ -6,8 +6,6 @@ CREATE TABLE course_order (
     course_id      BIGINT NOT NULL,
     price          DECIMAL(10,2) NOT NULL,
     status         VARCHAR(20) NOT NULL DEFAULT 'INIT',  -- INIT / TRY / CONFIRMED / CANCELLED
-    -- 记录当前订单的尝试过期时间
-    try_expire_at  DATETIME,
     created_at     DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at     DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

@@ -53,7 +53,6 @@ func PurchaseHandler(s *service.PurchaseService) http.HandlerFunc {
 		workerPool.Submit(func() {
 			err := s.Purchase(r.Context(), req.OrderNo, req.UserId, req.CourseId, req.Price)
 			if err != nil {
-				// 记录错误日志，实际生产可写入队列重试
 				//和第四个一样
 				println("purchase failed:", err.Error())
 			}
